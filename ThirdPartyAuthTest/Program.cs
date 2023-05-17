@@ -6,7 +6,7 @@ var configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+    
 services.AddAuthentication().AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
