@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@*@inject SignInManager<IdentityUser> signInManager*@
+@inject SignInManager<IdentityUser> signInManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,20 +28,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                        @*@if (signInManager.IsSignedIn(User))
-                        {*@
+                        @if (signInManager.IsSignedIn(User))
+                        {
                             <li class="nav-item ml-auto">
                                 <form method="post" asp-controller="account" asp-action="logout">
                                     <button type="submit" style="width:auto"
                                             class="nav-link btn btn-link py-0">
-                                        Logout
+                                        Logout @User.Identity.Name
                                     </button>
                                 </form>
                             </li>
-                        @*}
+                        }
 
                         else
-                        {*@
+                        {
 
                             <li class="nav-item ml-auto">
                                 <a class="nav-link text-dark" asp-controller="account" asp-action="register">
@@ -50,11 +50,11 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Login">
+                                <a class="nav-link" asp-controller="account" asp-action="login">
                                     Login
                                 </a>
                             </li>
-                        @*}*@
+                        }
                     </ul>
                 </div>
             </div>

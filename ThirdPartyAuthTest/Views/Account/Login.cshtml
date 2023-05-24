@@ -41,7 +41,7 @@
             }
             else
             {
-                <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+               // <form asp-controller="account" asp-action="ExternalLogin" method="post">
                     <div>
                         @foreach (var provider in Model.ExternalLogins)
                         {
@@ -50,9 +50,12 @@
                                     title="Login using your @provider.DisplayName account">
                                 @provider.DisplayName
                             </button>
+                        <a href="@Url.Action("ExternalLogin","Account")"
+                           class="btn btn-primary btn-lg">Register</a>
+                        
                         }
                     </div>
-                </form>
+               // </form>
             }
         }
     </div>

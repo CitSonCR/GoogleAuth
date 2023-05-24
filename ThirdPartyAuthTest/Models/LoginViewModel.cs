@@ -10,6 +10,8 @@ namespace ThirdPartyAuthTest.Models
 		public LoginViewModel()
 		{
 		}
+        [Key]
+        public int Id { get; set; }
 
         [Required]
         [EmailAddress]
