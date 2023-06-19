@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 using ThirdPartyAuthTest;
+using ThirdPartyAuthTest.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -18,6 +21,38 @@ services.AddAuthentication().AddGoogle(googleOptions =>
 });
 
 
+var customThemeStyles =
+    new Dictionary<ConsoleThemeStyle, SystemConsoleThemeStyle>
+    {
+        {
+            ConsoleThemeStyle.Text, new SystemConsoleThemeStyle
+            {
+                Foreground = ConsoleColor.Green,
+            }
+        },
+        {
+            ConsoleThemeStyle.String, new SystemConsoleThemeStyle
+            {
+                Foreground = ConsoleColor.Yellow,
+            }
+        },
+    };
+
+var customTheme = new SystemConsoleTheme(customThemeStyles);
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console(theme: customTheme)
+    .CreateLogger();
+
+Log.Logger.Information("Iniciando aplicacion!");
+
+builder.Host.UseSerilog((context, config) =>
+{
+    config.WriteTo.Console();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +62,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+//-------Custom Middleware
+app.UseLoggingMiddleware();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

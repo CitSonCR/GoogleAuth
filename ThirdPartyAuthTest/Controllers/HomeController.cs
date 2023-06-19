@@ -14,7 +14,7 @@ namespace ThirdPartyAuthTest.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View("~/Pages/Index");
         }
 
         [Authorize]

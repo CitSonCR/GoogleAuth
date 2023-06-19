@@ -41,7 +41,7 @@
             }
             else
             {
-                <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                <form method="post" action="ExternalLogin">
                     <div>
                         @foreach (var provider in Model.ExternalLogins)
                         {
